@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">PDF Reader</string>
+    <string name="all_files">All files</string>
+    <string name="tools">Tools</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_file">Search…</string>
+    <string name="settings">Settings</string>
+    <string name="file_manager">File manager</string>
+    <string name="delete">Delete</string>
+    <string name="file_name">File Name</string>
+    <string name="cancel">CANCEL</string>
+    <string name="ok">OK</string>
+    <string name="details">Details</string>
+    <string name="storage_path">Storage path</string>
+    <string name="last_modified">Last modified</string>
+    <string name="file_size">File size</string>
+    <string name="rename">Rename</string>
+    <string name="share">Share</string>
+    <string name="new_file_name">New File Name</string>
+    <string name="sort_by">Sort by</string>
+    <string name="name">Name</string>
+    <string name="a_z">(A-Z)</string>
+    <string name="z_a">(Z-A)</string>
+    <string name="new_to_old">(new to old)</string>
+    <string name="old_to_new">(old to new)</string>
+    <string name="large_to_small">(large to small)</string>
+    <string name="small_to_large">(small to large)</string>
+    <string name="_00_0kb">00.0kb</string>
+
+</resources>
