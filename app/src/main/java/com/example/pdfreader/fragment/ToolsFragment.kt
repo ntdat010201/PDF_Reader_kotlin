@@ -1,5 +1,6 @@
 package com.example.pdfreader.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +32,13 @@ private lateinit var binding : FragmentToolsBinding
     }
 
     private fun initListener() {
-
+        binding.fileManager.setOnClickListener{
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                type = "*/*"
+                addCategory(Intent.CATEGORY_OPENABLE)
+            }
+            startActivityForResult(intent,11)
+        }
     }
 
 }

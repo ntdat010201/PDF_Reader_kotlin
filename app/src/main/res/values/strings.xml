@@ -27,5 +27,7 @@
     <string name="large_to_small">(large to small)</string>
     <string name="small_to_large">(small to large)</string>
     <string name="_00_0kb">00.0kb</string>
+    <string name="image_to_pdf">Image to PDF</string>
+    <string name="edit_pdf">Edit PDF</string>
 
 </resources>

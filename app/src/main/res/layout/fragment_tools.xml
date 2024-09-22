@@ -23,6 +23,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/file_manager"
                 android:padding="15dp"
                 android:layout_marginBottom="3dp"
                 android:background="@drawable/view_rounded_square"
@@ -38,7 +39,7 @@
 
                 android:textColor="@color/standard_black"
                 android:textSize="14sp"
-                android:text="File Manager"
+                android:text="@string/file_manager"
                 android:id="@+id/name_tool1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +70,7 @@
             <TextView
                 android:textColor="@color/standard_black"
                 android:textSize="14sp"
-                android:text="Image to PDF"
+                android:text="@string/image_to_pdf"
                 android:id="@+id/name_tool2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -99,7 +100,7 @@
             <TextView
                 android:textColor="@color/standard_black"
                 android:textSize="14sp"
-                android:text="Edit PDF"
+                android:text="@string/edit_pdf"
                 android:id="@+id/name_tool3"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
