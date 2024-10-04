@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.PDFReader" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Base.Theme.PDFReaderKotlin" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#7C0000</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -15,5 +15,5 @@
         <!-- Customize your theme here. -->
     </style>
 
-
+    <style name="Theme.PDFReaderKotlin" parent="Base.Theme.PDFReaderKotlin" />
 </resources>

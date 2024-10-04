@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.pdfreader.fragment.ExcelFileFragment">
+    tools:context=".fragment.ExcelFileFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:scrollbarThumbVertical="@drawable/ic_scroll_bar"
