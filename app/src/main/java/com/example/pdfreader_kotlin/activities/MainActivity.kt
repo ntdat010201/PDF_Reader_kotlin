@@ -106,10 +106,6 @@ class MainActivity : BaseActivity(), DialogSortBy.SortByListener {
             }
         })
 
-        binding.settings.setOnClickListener {
-            val intent = Intent(this, OpenTest::class.java)
-            startActivity(intent)
-        }
 
         binding.sortBy.setOnClickListener {
             val dialogSortBy = DialogSortBy()

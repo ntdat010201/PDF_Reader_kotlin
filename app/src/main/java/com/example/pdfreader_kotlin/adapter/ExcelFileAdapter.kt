@@ -11,7 +11,8 @@ import com.example.pdfreader_kotlin.utlis.FormatUtil
 class ExcelFileAdapter(
     private var files : List<ModelFileItem>
 ) : RecyclerView.Adapter<ExcelFileAdapter.FileViewHolder>(){
-    var onItemClick: ((ModelFileItem) -> Unit)? = null
+    var onItemClickMore: ((ModelFileItem) -> Unit)? = null
+    var onItemClickItem: ((ModelFileItem) -> Unit)? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FileViewHolder {
@@ -31,8 +32,13 @@ class ExcelFileAdapter(
         holder.sizeFile.text = FormatUtil.formatFileSize(fileItem.size)
 
         holder.more.setOnClickListener {
-            onItemClick?.invoke(fileItem)
+            onItemClickMore?.invoke(fileItem)
         }
+
+        holder.itemView.setOnClickListener {
+            onItemClickItem?.invoke(fileItem)
+        }
+
     }
 
     fun updateFiles(files : List<ModelFileItem>){

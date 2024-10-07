@@ -11,8 +11,8 @@ import com.example.pdfreader_kotlin.utlis.FormatUtil
 class PDFFileAdapter(
     private var files: List<ModelFileItem>
 ) : RecyclerView.Adapter<PDFFileAdapter.FileViewHolder>() {
-    var onItemClick: ((ModelFileItem) -> Unit)? = null
-
+    var onItemClickMore: ((ModelFileItem) -> Unit)? = null
+    var onItemClickItem: ((ModelFileItem) -> Unit)? = null
 
     fun updateFiles(files: List<ModelFileItem>) {
         this.files = files
@@ -40,7 +40,11 @@ class PDFFileAdapter(
         holder.sizeFile.text = FormatUtil.formatFileSize(fileItem.size)
 
         holder.more.setOnClickListener {
-            onItemClick?.invoke(fileItem)
+            onItemClickMore?.invoke(fileItem)
+        }
+
+        holder.itemView.setOnClickListener {
+            onItemClickItem?.invoke(fileItem)
         }
     }
 

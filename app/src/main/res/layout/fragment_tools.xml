@@ -56,6 +56,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/image_to_pdf"
                 android:padding="15dp"
                 android:background="@drawable/view_rounded_square"
                 android:layout_marginBottom="3dp"

@@ -1,5 +1,6 @@
 package com.example.pdfreader_kotlin.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pdfreader_kotlin.activities.OpenFilePdfActivity
 import com.example.pdfreader_kotlin.adapter.PDFFileAdapter
 import com.example.pdfreader_kotlin.databinding.FragmentPDFFileBinding
 import com.example.pdfreader_kotlin.dialog.DialogEditFile
@@ -64,11 +66,20 @@ class PDFFileFragment : Fragment() , DialogSortBy.SortByListener{
     }
 
     private fun initListener() {
-        pdfFileAdapter?.onItemClick = { file ->
+        pdfFileAdapter?.onItemClickMore = { file ->
             val dialogEditFile = DialogEditFile(file)
             dialogEditFile.show(parentFragmentManager,dialogEditFile.tag)
         }
+
+        pdfFileAdapter?.onItemClickItem = {file ->
+            val intent = Intent(requireContext(), OpenFilePdfActivity::class.java)
+            intent.putExtra("data_pdf",file)
+            startActivity(intent)
+        }
+
     }
+
+
 
     override fun onSortBySelected(sortBy: String) {
         fileViewModel.setSortOrder(sortBy)

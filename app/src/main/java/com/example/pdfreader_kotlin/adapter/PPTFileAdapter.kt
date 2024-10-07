@@ -11,7 +11,8 @@ import com.example.pdfreader_kotlin.utlis.FormatUtil
 class PPTFileAdapter(
     private var files: List<ModelFileItem>
 ) : RecyclerView.Adapter<PPTFileAdapter.FileViewHolder>() {
-    var onItemClick: ((ModelFileItem) -> Unit)? = null
+    var onItemClickMore: ((ModelFileItem) -> Unit)? = null
+    var onItemClickItem: ((ModelFileItem) -> Unit)? = null
 
 
     fun updateFiles(files: List<ModelFileItem>) {
@@ -40,8 +41,13 @@ class PPTFileAdapter(
         holder.sizeFile.text = FormatUtil.formatFileSize(fileItem.size)
 
         holder.more.setOnClickListener {
-            onItemClick?.invoke(fileItem)
+            onItemClickMore?.invoke(fileItem)
         }
+
+        holder.itemView.setOnClickListener {
+            onItemClickItem?.invoke(fileItem)
+        }
+
     }
 
     class FileViewHolder(var binding: ItemFileBinding) : RecyclerView.ViewHolder(binding.root) {

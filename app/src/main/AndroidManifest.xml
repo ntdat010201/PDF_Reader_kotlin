@@ -18,7 +18,7 @@
         android:theme="@style/Theme.PDFReaderKotlin"
         tools:targetApi="31">
         <activity
-            android:name=".activities.OpenTest"
+            android:name=".activities.ImageToPDFActivity"
             android:exported="false" />
         <activity
             android:name=".activities.OpenFileDocXlsPptActivity"

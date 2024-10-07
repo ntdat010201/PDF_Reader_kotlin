@@ -1,5 +1,6 @@
 package com.example.pdfreader_kotlin.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pdfreader_kotlin.activities.OpenFileDocXlsPptActivity
 import com.example.pdfreader_kotlin.adapter.ExcelFileAdapter
 import com.example.pdfreader_kotlin.databinding.FragmentExcelFileBinding
 import com.example.pdfreader_kotlin.dialog.DialogEditFile
@@ -60,9 +62,15 @@ class ExcelFileFragment : Fragment(), DialogSortBy.SortByListener {
     }
 
     private fun initListener() {
-        excelFileAdapter?.onItemClick = { file ->
+        excelFileAdapter?.onItemClickMore = { file ->
             val dialogEditFile = DialogEditFile(file)
-            dialogEditFile.show(parentFragmentManager, dialogEditFile.tag)
+            dialogEditFile.show(parentFragmentManager,dialogEditFile.tag)
+        }
+
+        excelFileAdapter?.onItemClickItem = {file ->
+            val intent = Intent(requireContext(), OpenFileDocXlsPptActivity::class.java)
+            intent.putExtra("data",file)
+            startActivity(intent)
         }
     }
 
