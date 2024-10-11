@@ -61,9 +61,8 @@ dependencies {
     implementation("androidx.viewpager2:viewpager2:1.0.0")
     //CollapsingToolbarLayout
     implementation("com.google.android.material:material:1.9.0")
-    // pdf
+    // Pdf
     implementation("com.github.mhiew:android-pdf-viewer:3.2.0-beta.3")
-
 
     // doc, ppt, xls
     // Thêm Apache POI cho tài liệu Word (DOC, DOCX)

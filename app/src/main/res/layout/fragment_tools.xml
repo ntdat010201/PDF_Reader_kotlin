@@ -7,7 +7,7 @@
     tools:context=".fragment.ToolsFragment">
 
     <LinearLayout
-
+        android:id="@+id/linear_layout_1"
         android:layout_margin="10dp"
         android:weightSum="3"
         android:orientation="horizontal"
@@ -103,6 +103,50 @@
                 android:textSize="14sp"
                 android:text="@string/edit_pdf"
                 android:id="@+id/name_tool3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout_1"
+        android:layout_margin="10dp"
+        android:weightSum="3"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/important_mark"
+                android:padding="15dp"
+                android:layout_marginBottom="3dp"
+                android:background="@drawable/view_rounded_square"
+                app:layout_constraintBottom_toTopOf="@+id/name_important_mark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/folder_star"
+                android:layout_width="80dp"
+                android:layout_height="80dp"/>
+
+            <TextView
+                android:textColor="@color/standard_black"
+                android:textSize="14sp"
+                android:text="@string/important_box"
+                android:id="@+id/name_important_mark"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

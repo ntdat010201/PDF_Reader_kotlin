@@ -11,10 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.pdfreader_kotlin.activities.ImageToPDFActivity
 import com.example.pdfreader_kotlin.databinding.FragmentToolsBinding
+import com.example.pdfreader_kotlin.utlis.Const.FILE_PICKER_REQUEST_CODE
 
 class ToolsFragment : Fragment() {
-private lateinit var binding : FragmentToolsBinding
-    private val FILE_PICKER_REQUEST_CODE = 100
+    private lateinit var binding: FragmentToolsBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,8 +42,12 @@ private lateinit var binding : FragmentToolsBinding
         }
 
         binding.imageToPdf.setOnClickListener {
-            val intent = Intent(requireContext(),ImageToPDFActivity::class.java)
+            val intent = Intent(requireContext(), ImageToPDFActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.importantMark.setOnClickListener {
+
         }
 
     }

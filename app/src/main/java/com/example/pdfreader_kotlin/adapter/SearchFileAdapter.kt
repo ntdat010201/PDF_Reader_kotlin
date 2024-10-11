@@ -3,14 +3,16 @@ package com.example.pdfreader_kotlin.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pdfreader_kotlin.R
 import com.example.pdfreader_kotlin.databinding.ItemFileBinding
 import com.example.pdfreader_kotlin.model.ModelFileItem
+import com.example.pdfreader_kotlin.utlis.FileIconUtil
+import com.example.pdfreader_kotlin.utlis.FormatUtil
 
 class SearchFileAdapter(
     private var files: ArrayList<ModelFileItem>? = null
 ) : RecyclerView.Adapter<SearchFileAdapter.FileViewHolder>() {
-
+    var onItemClickMore: ((ModelFileItem) -> Unit)? = null
+    var onItemClickItem: ((ModelFileItem) -> Unit)? = null
     fun updateFiles(files: ArrayList<ModelFileItem>) {
         this.files = files
         notifyDataSetChanged()
@@ -31,26 +33,28 @@ class SearchFileAdapter(
     }
 
     override fun onBindViewHolder(holder: FileViewHolder, position: Int) {
-        val fileItem = files?.get(position)
-        if (fileItem != null) {
-            holder.name.text = fileItem.name
-            holder.iconFile.setImageResource(getFileIcon(fileItem.type))
+        val fileItem = files!![position]
+
+        holder.nameFile.text = fileItem.name
+        holder.iconFile.setImageResource(FileIconUtil.getFileIcon(fileItem.type))
+        holder.lastModified.text = FormatUtil.formatFileDate(fileItem.lastModified)
+        holder.sizeFile.text = FormatUtil.formatFileSize(fileItem.size)
+
+        holder.more.setOnClickListener {
+            onItemClickMore?.invoke(fileItem)
         }
 
+        holder.itemView.setOnClickListener {
+            onItemClickItem?.invoke(fileItem)
+        }
     }
 
     inner class FileViewHolder(binding: ItemFileBinding) : RecyclerView.ViewHolder(binding.root) {
-        var name = binding.fileName
-        var iconFile = binding.fileIcon
+        val nameFile = binding.fileName
+        val iconFile = binding.fileIcon
+        val lastModified = binding.lastModified
+        val sizeFile = binding.sizeFile
+        val more = binding.moreVert
     }
 
-    private fun getFileIcon(mimeType: String): Int {
-        return when {
-            mimeType.contains("pdf") -> R.drawable.ic_pdf
-            mimeType.contains("doc") || mimeType.contains("docx") -> R.drawable.ic_doc
-            mimeType.contains("xls") || mimeType.contains("xlsx") -> R.drawable.ic_xls
-            mimeType.contains("ppt") || mimeType.contains("pptx") -> R.drawable.ic_ppt
-            else -> R.drawable.ic_pdf // Hình ảnh mặc định nếu không xác định được loại file
-        }
-    }
 }

@@ -1,5 +1,6 @@
 package com.example.pdfreader_kotlin.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,14 +10,13 @@ import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pdfreader_kotlin.adapter.SearchFileAdapter
 import com.example.pdfreader_kotlin.databinding.ActivitySearchFileBinding
+import com.example.pdfreader_kotlin.dialog.DialogEditFile
 import com.example.pdfreader_kotlin.model.ModelFileItem
 
 class SearchFileActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchFileBinding
 
     private var searchFileAdapter: SearchFileAdapter? = null
-//    private lateinit var fileViewModel: FileViewModel
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +56,24 @@ class SearchFileActivity : AppCompatActivity() {
     private fun initListener() {
         binding.backBtn.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
+        }
+
+        searchFileAdapter?.onItemClickMore = { file ->
+            val dialogEditFile = DialogEditFile(file)
+            dialogEditFile.show(supportFragmentManager,dialogEditFile.tag)
+        }
+
+        searchFileAdapter?.onItemClickItem = { file ->
+
+            if (file.type.contains("pdf")){
+                val intent = Intent(this, OpenFilePdfActivity::class.java)
+                intent.putExtra("data_pdf",file)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, OpenFileDocXlsPptActivity::class.java)
+                intent.putExtra("data",file)
+                startActivity(intent)
+            }
         }
 
     }
