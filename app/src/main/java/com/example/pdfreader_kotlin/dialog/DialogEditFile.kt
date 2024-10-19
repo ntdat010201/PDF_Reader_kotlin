@@ -2,16 +2,20 @@ package com.example.pdfreader_kotlin.dialog
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.example.pdfreader_kotlin.R
 import com.example.pdfreader_kotlin.databinding.FragmentDialogEditFileBinding
 import com.example.pdfreader_kotlin.model.ModelFileItem
 import com.example.pdfreader_kotlin.utlis.FileIconUtil
 import com.example.pdfreader_kotlin.viewmodel.FileViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.launch
 
 
 class DialogEditFile(
@@ -33,6 +37,7 @@ class DialogEditFile(
 
     private fun initData() {
         fileViewModel = ViewModelProvider(requireActivity())[FileViewModel::class.java]
+
     }
 
     private fun initView() {
@@ -46,6 +51,8 @@ class DialogEditFile(
         renameFile()
         shareFile()
         deletesFile()
+        import()
+
     }
 
     private fun deletesFile() {
@@ -61,7 +68,7 @@ class DialogEditFile(
             val shareIntent = Intent()
             shareIntent.action = Intent.ACTION_SEND
             shareIntent.type = "file/*"
-            shareIntent.putExtra(Intent.EXTRA_STREAM,file)
+            shareIntent.putExtra(Intent.EXTRA_STREAM, file)
             startActivity(Intent.createChooser(shareIntent, "Sharing File!!"))
             Toast.makeText(requireContext(), "loading...", Toast.LENGTH_SHORT).show()
             dismiss()
@@ -81,6 +88,28 @@ class DialogEditFile(
             val dialogDetailsFile = DialogDetailsFile(file)
             dialogDetailsFile.show(parentFragmentManager, dialogDetailsFile.tag)
             dismiss()
+        }
+    }
+
+
+    private fun import() {
+        binding.imgTick.setOnClickListener {
+            lifecycleScope.launch {
+                val isFavorite = fileViewModel.isFileFavorite(file.path)
+                if (isFavorite) {
+                    Log.d("DAT", "delete: ${file.path}")
+                    binding.imgTick.setImageResource(R.drawable.ic_tick)
+                    fileViewModel.removeFavoriteFile(file)
+                    Toast.makeText(requireActivity(), "đã xóa", Toast.LENGTH_SHORT).show()
+                } else {
+                    Log.d("DAT", "add: ${file.path}")
+                    binding.imgTick.setImageResource(R.drawable.ic_tick_yellow)
+                    fileViewModel.addFavoriteFile(file)
+                    Toast.makeText(requireActivity(), "đã thêm", Toast.LENGTH_SHORT).show()
+
+                }
+            }
+
         }
     }
 

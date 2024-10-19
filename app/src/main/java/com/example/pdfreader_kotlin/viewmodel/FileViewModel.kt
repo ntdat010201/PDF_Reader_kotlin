@@ -1,38 +1,31 @@
 package com.example.pdfreader_kotlin.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.pdfreader_kotlin.database.FileDatabase
 import com.example.pdfreader_kotlin.model.ModelFileItem
+import com.example.pdfreader_kotlin.utlis.FileDAO
+import kotlinx.coroutines.launch
 import java.io.File
 
-class FileViewModel : ViewModel() {
+class FileViewModel(application : Application) : AndroidViewModel(application) {
+
+    private val fileDao: FileDAO = FileDatabase.getDatabase(application).fileDao()
+    val favoriteFiles: LiveData<List<ModelFileItem>> = fileDao.getAllFavoriteFiles()
 
     private val filesLiveData = MutableLiveData<List<ModelFileItem>>()
     val fileItems: LiveData<List<ModelFileItem>> get() = filesLiveData
 
     private var currentSortOrder: String = "az"
 
-//    private val itemChannel = Channel<ModelFileItem>(Channel.UNLIMITED)
-//    init {
-//        // Coroutine scope for continuous data fetching
-//        viewModelScope.launch {
-//            for (item in itemChannel) {
-//                val currentList = filesLiveData.value?.toMutableList() ?: mutableListOf()
-//                currentList.add(item)
-//                filesLiveData.value = currentList
-//            }
-//        }
-//    }
-
-
     fun loadFiles(directory: File) {
         if (directory.exists() && directory.isDirectory) {
             val fileItemsList = mutableListOf<ModelFileItem>()
             searchFiles(directory, fileItemsList)
             filesLiveData.value = fileItemsList
-        } else {
-
         }
     }
 
@@ -42,11 +35,15 @@ class FileViewModel : ViewModel() {
             if (file.isDirectory) {
                 searchFiles(file, fileItemsList)
             } else if (file.extension in fileExtensions) {
-                fileItemsList.add(
-                    ModelFileItem(
-                        file.name, file.absolutePath, file.name, file.lastModified(), file.length()
-                    )
+                val modelFileItem = ModelFileItem(
+                    name = file.name,
+                    path = file.absolutePath,
+                    type = file.extension.lowercase(),
+                    lastModified = file.lastModified(),
+                    size = file.length()
                 )
+                fileItemsList.add(modelFileItem) // Thêm vào danh sách
+
             }
         }
     }
@@ -83,9 +80,9 @@ class FileViewModel : ViewModel() {
     }
 
     fun renameFile(oldFile: ModelFileItem, newFileName: String): Boolean {
-        var oldFileObject = File(oldFile.path)
-        var fileExtension = oldFileObject.extension
-        var newFile = File(oldFileObject.parentFile, "$newFileName.$fileExtension")
+        val oldFileObject = File(oldFile.path)
+        val fileExtension = oldFileObject.extension
+        val newFile = File(oldFileObject.parentFile, "$newFileName.$fileExtension")
 
         if (newFileName.contains(Regex("[\\\\/:*?\"<>|]"))) {
             return false
@@ -106,5 +103,28 @@ class FileViewModel : ViewModel() {
         }
         return success
     }
+
+
+    fun addFavoriteFile(file: ModelFileItem) {
+        viewModelScope.launch {
+            fileDao.addFavoriteFile(file)
+        }
+    }
+
+    fun removeFavoriteFile(file: ModelFileItem) {
+        viewModelScope.launch {
+            try {
+                fileDao.removeFavoriteFile(file)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    suspend fun isFileFavorite(filePath: String): Boolean {
+        return fileDao.isFileFavorite(filePath) != null
+    }
+
+
 
 }

@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -59,11 +60,17 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0-rc01")
     //viewpager2
     implementation("androidx.viewpager2:viewpager2:1.0.0")
-    //CollapsingToolbarLayout
-    implementation("com.google.android.material:material:1.9.0")
+//    //CollapsingToolbarLayout
+//    implementation("com.google.android.material:material:1.9.0")
+    //room
+    // Room dependencies
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+
+
     // Pdf
     implementation("com.github.mhiew:android-pdf-viewer:3.2.0-beta.3")
-
     // doc, ppt, xls
     // Thêm Apache POI cho tài liệu Word (DOC, DOCX)
     implementation ("org.apache.poi:poi:5.2.3") // Thư viện chính

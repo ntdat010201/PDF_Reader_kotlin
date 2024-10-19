@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.pdfreader_kotlin.activities.ImageToPDFActivity
+import com.example.pdfreader_kotlin.activities.ImportantFolderActivity
 import com.example.pdfreader_kotlin.databinding.FragmentToolsBinding
 import com.example.pdfreader_kotlin.utlis.Const.FILE_PICKER_REQUEST_CODE
 
@@ -46,8 +47,9 @@ class ToolsFragment : Fragment() {
             startActivity(intent)
         }
 
-        binding.importantMark.setOnClickListener {
-
+        binding.importantBox.setOnClickListener {
+            val intent = Intent(requireContext(),ImportantFolderActivity::class.java)
+            startActivity(intent)
         }
 
     }

@@ -130,11 +130,11 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/important_mark"
+                android:id="@+id/important_box"
                 android:padding="15dp"
                 android:layout_marginBottom="3dp"
                 android:background="@drawable/view_rounded_square"
-                app:layout_constraintBottom_toTopOf="@+id/name_important_mark"
+                app:layout_constraintBottom_toTopOf="@+id/name_important_box"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -146,7 +146,7 @@
                 android:textColor="@color/standard_black"
                 android:textSize="14sp"
                 android:text="@string/important_box"
-                android:id="@+id/name_important_mark"
+                android:id="@+id/name_important_box"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

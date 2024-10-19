@@ -1,14 +1,10 @@
 package com.example.pdfreader_kotlin.activities
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.Observer
@@ -17,13 +13,11 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.pdfreader_kotlin.R
 import com.example.pdfreader_kotlin.adapter.ViewpagerActivityAdapter
 import com.example.pdfreader_kotlin.base.BaseActivity
-
 import com.example.pdfreader_kotlin.databinding.ActivityMainBinding
 import com.example.pdfreader_kotlin.dialog.DialogSortBy
 import com.example.pdfreader_kotlin.fragment.AllFileFragment
 import com.example.pdfreader_kotlin.fragment.HomeFragment
 import com.example.pdfreader_kotlin.fragment.ToolsFragment
-import com.example.pdfreader_kotlin.utlis.Const.STORAGE_PERMISSION_CODE
 import com.example.pdfreader_kotlin.viewmodel.FileViewModel
 
 
@@ -35,7 +29,6 @@ class MainActivity : BaseActivity(), DialogSortBy.SortByListener {
     private var adapter: ViewpagerActivityAdapter? = null
     private lateinit var fileViewModel: FileViewModel
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
@@ -44,7 +37,8 @@ class MainActivity : BaseActivity(), DialogSortBy.SortByListener {
         fileViewModel = ViewModelProvider(this)[FileViewModel::class.java]
         initView()
         initListener()
-        checkPermission()
+//        checkPermission()
+        check()
     }
 
     private fun initData() {
@@ -89,7 +83,10 @@ class MainActivity : BaseActivity(), DialogSortBy.SortByListener {
                 else -> false
             }
         }
+
     }
+
+
 
 
     private fun initView() {
@@ -114,6 +111,55 @@ class MainActivity : BaseActivity(), DialogSortBy.SortByListener {
 
     }
 
+    private fun check(){
+        fileViewModel.loadFiles(Environment.getExternalStorageDirectory())
+    }
+
+
+//        private fun checkPermission() {
+//        // Kiểm tra quyền đọc và ghi bộ nhớ ngoài
+//        if (ContextCompat.checkSelfPermission(
+//                this, Manifest.permission.READ_EXTERNAL_STORAGE
+//            ) != PackageManager.PERMISSION_GRANTED ||
+//            ContextCompat.checkSelfPermission(
+//                this, Manifest.permission.WRITE_EXTERNAL_STORAGE
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            ActivityCompat.requestPermissions(
+//                this,
+//                arrayOf(
+//                    Manifest.permission.READ_EXTERNAL_STORAGE,
+//                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                ),
+//                Const.STORAGE_PERMISSION_CODE
+//            )
+//        } else {
+//            fileViewModel.loadFiles(Environment.getExternalStorageDirectory())
+//
+//        }
+//    }
+
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//
+//        if (requestCode == Const.STORAGE_PERMISSION_CODE) {
+//            if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
+//                // Quyền đã được cấp
+//                Toast.makeText(this, "Quyền đã được cấp", Toast.LENGTH_SHORT).show()
+//                fileViewModel.loadFiles(Environment.getExternalStorageDirectory())
+//
+//            } else {
+//                // Quyền bị từ chối
+//                Toast.makeText(
+//                    this,
+//                    "Quyền bị từ chối, không thể truy cập file",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//        }
+//    }
 
     override fun onSortBySelected(sortBy: String) {
         // Find AllFileFragment and pass the sort order to it
@@ -122,49 +168,7 @@ class MainActivity : BaseActivity(), DialogSortBy.SortByListener {
     }
 
 
-    private fun checkPermission() {
-        // Kiểm tra quyền đọc và ghi bộ nhớ ngoài
-        if (ContextCompat.checkSelfPermission(
-                this, Manifest.permission.READ_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(
-                this, Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ),
-                STORAGE_PERMISSION_CODE
-            )
-        } else {
 
-            fileViewModel.loadFiles(Environment.getExternalStorageDirectory())
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == STORAGE_PERMISSION_CODE) {
-            if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
-                // Quyền đã được cấp
-                Toast.makeText(this, "Quyền đã được cấp", Toast.LENGTH_SHORT).show()
-                fileViewModel.loadFiles(Environment.getExternalStorageDirectory())
-            } else {
-                // Quyền bị từ chối
-                Toast.makeText(
-                    this,
-                    "Quyền bị từ chối, không thể truy cập file",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-    }
 
     private fun setColorTabLayout() {
         homeFragment.performAction = { position ->
