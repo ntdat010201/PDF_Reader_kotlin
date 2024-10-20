@@ -46,7 +46,7 @@ class OpenFileDocXlsPptActivity : AppCompatActivity() {
                 stringBuilder.append(paragraph.text).append("\n")
             }
 
-            binding.textView.text = stringBuilder.toString() // Cập nhật TextView
+            binding.textView.text = stringBuilder.toString()
             document.close()
             fileInputStream.close()
         } catch (e: Exception) {
@@ -93,7 +93,7 @@ class OpenFileDocXlsPptActivity : AppCompatActivity() {
                 stringBuilder.append("\n") // Thêm dòng trống giữa các slide
             }
 
-            binding.textView.text = stringBuilder.toString() // Cập nhật TextView
+            binding.textView.text = stringBuilder.toString()
             ppt.close()
             fileInputStream.close()
         } catch (e: Exception) {

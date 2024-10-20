@@ -20,7 +20,6 @@ import com.example.pdfreader_kotlin.fragment.HomeFragment
 import com.example.pdfreader_kotlin.fragment.ToolsFragment
 import com.example.pdfreader_kotlin.viewmodel.FileViewModel
 
-
 class MainActivity : BaseActivity(), DialogSortBy.SortByListener {
 
     private lateinit var binding: ActivityMainBinding
@@ -47,8 +46,8 @@ class MainActivity : BaseActivity(), DialogSortBy.SortByListener {
         adapter!!.setFragments(homeFragment, toolsFragment)
 
         binding.viewPager2.adapter = adapter
-        binding.viewPager2.offscreenPageLimit = 2   // Thiết lập số trang giữ trong bộ nhớ
-        binding.viewPager2.isUserInputEnabled = false   // khóa cuộn swipe
+        binding.viewPager2.offscreenPageLimit = 2
+        binding.viewPager2.isUserInputEnabled = false   // khóa cuộn
 
         binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -85,9 +84,6 @@ class MainActivity : BaseActivity(), DialogSortBy.SortByListener {
         }
 
     }
-
-
-
 
     private fun initView() {
         setColorTabLayout()
