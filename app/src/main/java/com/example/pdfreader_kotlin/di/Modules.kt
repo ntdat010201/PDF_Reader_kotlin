@@ -4,8 +4,7 @@ import org.koin.dsl.module
 
 val mainActivity = module {
 //    scope<MainActivity> {
-////        viewModel { FileViewModel(androidApplication()) }
-//
+//        viewModel { FileViewModel(androidApplication()) }
 //        viewModel { (application: Application) -> FileViewModel(application) }
 //
 //    }
