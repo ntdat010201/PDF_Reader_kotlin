@@ -24,6 +24,7 @@ class DialogEditFile(
     private lateinit var binding: FragmentDialogEditFileBinding
     private lateinit var fileViewModel: FileViewModel
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -93,15 +94,24 @@ class DialogEditFile(
 
 
     private fun import() {
+       lifecycleScope.launch {
+           val isFavorite = fileViewModel.isFileFavorite(file.path)
+           if (isFavorite){
+               binding.imgTick.setImageResource(R.drawable.ic_tick_yellow)
+           } else {
+               binding.imgTick.setImageResource(R.drawable.ic_tick)
+           }
+
+       }
         binding.imgTick.setOnClickListener {
             lifecycleScope.launch {
                 val isFavorite = fileViewModel.isFileFavorite(file.path)
-                if (isFavorite) {
+                if (isFavorite) { // nếu path tồn tại ko null
                     Log.d("DAT", "delete: ${file.path}")
-                    binding.imgTick.setImageResource(R.drawable.ic_tick)
                     fileViewModel.removeFavoriteFile(file)
+                    binding.imgTick.setImageResource(R.drawable.ic_tick)
                     Toast.makeText(requireActivity(), "đã xóa", Toast.LENGTH_SHORT).show()
-                } else {
+                } else { // ko tồn tại
                     Log.d("DAT", "add: ${file.path}")
                     binding.imgTick.setImageResource(R.drawable.ic_tick_yellow)
                     fileViewModel.addFavoriteFile(file)
@@ -109,8 +119,8 @@ class DialogEditFile(
 
                 }
             }
-
         }
     }
+
 
 }

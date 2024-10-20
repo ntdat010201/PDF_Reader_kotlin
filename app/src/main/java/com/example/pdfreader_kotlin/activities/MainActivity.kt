@@ -38,7 +38,7 @@ class MainActivity : BaseActivity(), DialogSortBy.SortByListener {
         initView()
         initListener()
 //        checkPermission()
-        check()
+        loadData()
     }
 
     private fun initData() {
@@ -111,55 +111,9 @@ class MainActivity : BaseActivity(), DialogSortBy.SortByListener {
 
     }
 
-    private fun check(){
+    private fun loadData(){
         fileViewModel.loadFiles(Environment.getExternalStorageDirectory())
     }
-
-
-//        private fun checkPermission() {
-//        // Kiểm tra quyền đọc và ghi bộ nhớ ngoài
-//        if (ContextCompat.checkSelfPermission(
-//                this, Manifest.permission.READ_EXTERNAL_STORAGE
-//            ) != PackageManager.PERMISSION_GRANTED ||
-//            ContextCompat.checkSelfPermission(
-//                this, Manifest.permission.WRITE_EXTERNAL_STORAGE
-//            ) != PackageManager.PERMISSION_GRANTED
-//        ) {
-//            ActivityCompat.requestPermissions(
-//                this,
-//                arrayOf(
-//                    Manifest.permission.READ_EXTERNAL_STORAGE,
-//                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-//                ),
-//                Const.STORAGE_PERMISSION_CODE
-//            )
-//        } else {
-//            fileViewModel.loadFiles(Environment.getExternalStorageDirectory())
-//
-//        }
-//    }
-
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//
-//        if (requestCode == Const.STORAGE_PERMISSION_CODE) {
-//            if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
-//                // Quyền đã được cấp
-//                Toast.makeText(this, "Quyền đã được cấp", Toast.LENGTH_SHORT).show()
-//                fileViewModel.loadFiles(Environment.getExternalStorageDirectory())
-//
-//            } else {
-//                // Quyền bị từ chối
-//                Toast.makeText(
-//                    this,
-//                    "Quyền bị từ chối, không thể truy cập file",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        }
-//    }
 
     override fun onSortBySelected(sortBy: String) {
         // Find AllFileFragment and pass the sort order to it
@@ -174,7 +128,6 @@ class MainActivity : BaseActivity(), DialogSortBy.SortByListener {
         homeFragment.performAction = { position ->
             when (position) {
                 0 -> {
-                    binding.settings.setImageResource(R.drawable.ic_settings_black)
                     binding.sortBy.setImageResource(R.drawable.ic_sort_black)
                     binding.searchFile.setImageResource(R.drawable.ic_search_black)
 
@@ -192,7 +145,6 @@ class MainActivity : BaseActivity(), DialogSortBy.SortByListener {
                 }
 
                 1 -> {
-                    binding.settings.setImageResource(R.drawable.ic_settings_white)
                     binding.sortBy.setImageResource(R.drawable.ic_sort_white)
                     binding.searchFile.setImageResource(R.drawable.ic_search_white)
 
@@ -205,7 +157,6 @@ class MainActivity : BaseActivity(), DialogSortBy.SortByListener {
                 }
 
                 2 -> {
-                    binding.settings.setImageResource(R.drawable.ic_settings_white)
                     binding.sortBy.setImageResource(R.drawable.ic_sort_white)
                     binding.searchFile.setImageResource(R.drawable.ic_search_white)
 
@@ -219,7 +170,6 @@ class MainActivity : BaseActivity(), DialogSortBy.SortByListener {
 
 
                 3 -> {
-                    binding.settings.setImageResource(R.drawable.ic_settings_white)
                     binding.sortBy.setImageResource(R.drawable.ic_sort_white)
                     binding.searchFile.setImageResource(R.drawable.ic_search_white)
 
@@ -232,7 +182,6 @@ class MainActivity : BaseActivity(), DialogSortBy.SortByListener {
                 }
 
                 else -> {
-                    binding.settings.setImageResource(R.drawable.ic_settings_white)
                     binding.sortBy.setImageResource(R.drawable.ic_sort_white)
                     binding.searchFile.setImageResource(R.drawable.ic_search_white)
 

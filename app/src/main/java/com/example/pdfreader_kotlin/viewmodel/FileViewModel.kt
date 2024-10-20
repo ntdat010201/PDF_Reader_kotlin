@@ -11,7 +11,7 @@ import com.example.pdfreader_kotlin.utlis.FileDAO
 import kotlinx.coroutines.launch
 import java.io.File
 
-class FileViewModel(application : Application) : AndroidViewModel(application) {
+class FileViewModel(application: Application) : AndroidViewModel(application) {
 
     private val fileDao: FileDAO = FileDatabase.getDatabase(application).fileDao()
     val favoriteFiles: LiveData<List<ModelFileItem>> = fileDao.getAllFavoriteFiles()
@@ -105,22 +105,25 @@ class FileViewModel(application : Application) : AndroidViewModel(application) {
     }
 
 
+    // Thêm file vào yêu thích
     fun addFavoriteFile(file: ModelFileItem) {
         viewModelScope.launch {
             fileDao.addFavoriteFile(file)
         }
     }
 
+    // Xóa file khỏi yêu thích
     fun removeFavoriteFile(file: ModelFileItem) {
         viewModelScope.launch {
             try {
-                fileDao.removeFavoriteFile(file)
+                fileDao.removeFavoriteFile(file.path)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
 
+    // Kiểm tra xem file có trong danh sách yêu thích hay không
     suspend fun isFileFavorite(filePath: String): Boolean {
         return fileDao.isFileFavorite(filePath) != null
     }
